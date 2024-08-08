@@ -22,9 +22,9 @@ const SignUp = () => {
         Alert.alert("Error", "Please fill in all the fields");
         return;
       }
+      setLoading(true);
 
       router.replace("/home");
-      setLoading(true);
       const result = await createUserAccount(email, password, username);
 
       return result;
