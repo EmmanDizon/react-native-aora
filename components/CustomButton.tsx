@@ -3,7 +3,7 @@ import { TouchableOpacity, Text } from "react-native";
 interface ICustomButton {
   title: string;
   containerStyles?: string;
-  isLoading: boolean;
+  isLoading?: boolean;
   textStyles?: string;
   handlePress?: () => void;
 }
