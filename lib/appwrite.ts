@@ -5,6 +5,7 @@ import {
   Avatars,
   Databases,
   Models,
+  Query,
 } from "react-native-appwrite";
 
 export const config = {
@@ -68,6 +69,23 @@ export async function signIn(email: string, password: string) {
     const session = await account.createEmailPasswordSession(email, password);
 
     return session;
+  } catch (error) {
+    if (error instanceof Error) throw new Error(error.message);
+  }
+}
+
+export async function getCurrentUSer() {
+  try {
+    const currentAccount = await account.get();
+    if (!currentAccount) throw new Error("No account found");
+
+    const currentUser = await databases.listDocuments(
+      config.databaseId,
+      config.userCollectionId,
+      [Query.equal("accountId", currentAccount.$id)]
+    );
+    if (!currentUser) throw new Error("Invalid account");
+    return currentUser.documents[0];
   } catch (error) {
     if (error instanceof Error) throw new Error(error.message);
   }
