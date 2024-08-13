@@ -29,7 +29,6 @@ const zoomOut = {
 
 const TrendingItem = ({ activeItem, item }: any) => {
   const [play, setPlay] = useState(false);
-  const [status, setStatus] = React.useState({});
 
   return (
     <Animatable.View
@@ -42,7 +41,7 @@ const TrendingItem = ({ activeItem, item }: any) => {
           source={{
             uri: "https://player.vimeo.com/video/949579770?h=897cd5e781.mp4",
           }}
-          className="w-52 h-72 rounded-[35px] mt-3 bg-white/30"
+          className="w-52 h-72 rounded-[33px] mt-3 bg-white/10"
           resizeMode={ResizeMode.CONTAIN}
           useNativeControls
           shouldPlay
@@ -54,7 +53,7 @@ const TrendingItem = ({ activeItem, item }: any) => {
         />
       ) : (
         <TouchableOpacity
-          className="relative justify-center items-center"
+          className="relative flex justify-center items-center"
           activeOpacity={0.7}
           onPress={() => setPlay(true)}
         >
@@ -66,7 +65,7 @@ const TrendingItem = ({ activeItem, item }: any) => {
 
           <Image
             source={icons.play}
-            className="absolute w-12 h-12"
+            className="w-12 h-12 absolute"
             resizeMode="contain"
           />
         </TouchableOpacity>

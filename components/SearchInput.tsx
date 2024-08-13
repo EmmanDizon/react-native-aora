@@ -3,11 +3,10 @@ import React, { useState } from "react";
 import { icons } from "../constants";
 
 interface IField {
-  title: string;
-  value: string;
-  otherStyles: string;
-  placeholder?: string;
-  handleChangeText: (e: string) => void;
+  handleChangeText?: (e: string) => void;
+  title?: string;
+  value?: string;
+  otherStyles?: string;
   keyboardType?: string;
 }
 
