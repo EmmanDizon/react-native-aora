@@ -90,3 +90,30 @@ export async function getCurrentUSer() {
     if (error instanceof Error) throw new Error(error.message);
   }
 }
+
+export async function getAllPosts() {
+  try {
+    const posts = await databases.listDocuments(
+      config.databaseId,
+      config.videoCollectionId
+    );
+
+    return posts.documents;
+  } catch (error) {
+    if (error instanceof Error) throw new Error(error.message);
+  }
+}
+
+export async function getLatestPosts() {
+  try {
+    const posts = await databases.listDocuments(
+      config.databaseId,
+      config.videoCollectionId,
+      [Query.orderDesc("$createdAt"), Query.limit(7)]
+    );
+
+    return posts.documents;
+  } catch (error) {
+    if (error instanceof Error) throw new Error(error.message);
+  }
+}
