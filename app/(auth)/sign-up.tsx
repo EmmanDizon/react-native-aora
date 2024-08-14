@@ -6,8 +6,10 @@ import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
 import { Link, router } from "expo-router";
 import { createUserAccount } from "@/lib/appwrite";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 const SignUp = () => {
+  const { setUser, setIsLogged } = useGlobalContext();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -24,10 +26,12 @@ const SignUp = () => {
       }
       setLoading(true);
 
-      router.replace("/home");
       const result = await createUserAccount(email, password, username);
 
-      return result;
+      setUser(result);
+      setIsLogged(true);
+
+      router.replace("/home");
     } catch (error) {
       if (error instanceof Error) Alert.alert("Error", error.message);
     } finally {
