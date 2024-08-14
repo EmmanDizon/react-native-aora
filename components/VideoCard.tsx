@@ -21,6 +21,9 @@ const VideoCard = ({ data }: any) => {
             <Text className="text-white font-psemibold text-sm">
               {data.title}
             </Text>
+            <Text className="text-xs text-gray-100 font-pregular">
+              {data.users.username}
+            </Text>
           </View>
         </View>
 
@@ -31,9 +34,7 @@ const VideoCard = ({ data }: any) => {
 
       {play ? (
         <Video
-          source={{
-            uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-          }}
+          source={{ uri: data.video }}
           className="w-full h-60 rounded-xl mt-3"
           resizeMode={ResizeMode.CONTAIN}
           useNativeControls

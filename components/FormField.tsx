@@ -15,7 +15,6 @@ const FormField = ({
   title,
   value,
   otherStyles,
-  keyboardType,
   placeholder,
   handleChangeText,
 }: IField) => {
