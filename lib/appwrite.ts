@@ -117,3 +117,17 @@ export async function getLatestPosts() {
     if (error instanceof Error) throw new Error(error.message);
   }
 }
+
+export async function searchPosts(query: any) {
+  try {
+    const posts = await databases.listDocuments(
+      config.databaseId,
+      config.videoCollectionId,
+      [Query.search("title", query)]
+    );
+
+    return posts.documents;
+  } catch (error) {
+    if (error instanceof Error) throw new Error(error.message);
+  }
+}
