@@ -5,14 +5,16 @@ import { images } from "../../constants";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
 import { Link, router } from "expo-router";
-import { signIn } from "@/lib/appwrite";
+import { getCurrentUSer, signIn } from "@/lib/appwrite";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 const SignIn = () => {
+  const { setUser, setIsLogged } = useGlobalContext();
+  const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-  const [isLoading, setLoading] = useState(false);
 
   const submit = async () => {
     try {
@@ -22,14 +24,17 @@ const SignIn = () => {
         return;
       }
 
-      setLoading(true);
+      setSubmitting(true);
 
       await signIn(email, password);
+      const result = await getCurrentUSer();
+      setUser(result);
+      setIsLogged(true);
       router.replace("/home");
     } catch (error) {
       if (error instanceof Error) Alert.alert("Error", error.message);
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
 
@@ -65,7 +70,7 @@ const SignIn = () => {
             title="Sign In"
             handlePress={submit}
             containerStyles="mt-7"
-            isLoading={isLoading}
+            isLoading={isSubmitting}
           />
 
           <View className="justify-center pt-5 flex-row gap-2">

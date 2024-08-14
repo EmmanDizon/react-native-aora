@@ -15,14 +15,13 @@ const GlobalContext = createContext<any>("");
 export const useGlobalContext = () => useContext(GlobalContext);
 
 export const GlobalProvider = ({ children }: Props) => {
-  const [isLoggedIn, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState<any | null>(null);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     const getUser = async () => {
       try {
-        setIsLogged(true);
         const user = await getCurrentUSer();
         if (!user) {
           setIsLogged(false);
@@ -43,7 +42,7 @@ export const GlobalProvider = ({ children }: Props) => {
 
   return (
     <GlobalContext.Provider
-      value={{ isLoggedIn, setIsLogged, user, setUser, isLoading }}
+      value={{ isLogged, setIsLogged, user, setUser, isLoading }}
     >
       {children}
     </GlobalContext.Provider>

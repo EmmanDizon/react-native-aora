@@ -131,3 +131,27 @@ export async function searchPosts(query: any) {
     if (error instanceof Error) throw new Error(error.message);
   }
 }
+
+export async function getUserPosts(userId: string) {
+  try {
+    const posts = await databases.listDocuments(
+      config.databaseId,
+      config.videoCollectionId,
+      [Query.equal("users", userId)]
+    );
+
+    return posts.documents;
+  } catch (error) {
+    if (error instanceof Error) throw new Error(error.message);
+  }
+}
+
+export async function signOut() {
+  try {
+    const session = await account.deleteSession("current");
+
+    return session;
+  } catch (error) {
+    if (error instanceof Error) throw new Error(error.message);
+  }
+}
